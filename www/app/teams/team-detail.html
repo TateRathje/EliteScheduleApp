@@ -1,0 +1,51 @@
+<ion-view title="{{vm.teamName}}" ng-controller="TeamDetailCtrl as vm">
+	<ion-content class="has-header">
+
+		<div class="card">
+			<div class="item item-button-right">
+				<h2>Record: {{vm.teamStanding.wins}}-{{vm.teamStanding.losses}}</h2>
+
+				<button class="button button-positive icon-left" ng-click="vm.toggleFollow()" ng-class="{'ion-checkmark-round': vm.following, 'ion-plus-round button-outline': !vm.following}">
+					{{vm.following ? "Following" : "Not Following"}}
+				</button>
+			</div>
+			<!-- <div class="item item-checkbox">
+				<h2>{{vm.following ? "Fallowing" : "Not Following"}}</h2>
+				<label class="checkbox">
+					<input type="checkbox" ng-model="vm.following"></input>
+				</label>
+			</div> 	 -->
+			<!-- <div class="item item-toggle">
+				<h2>{{vm.following ? "Fallowing" : "Not Following"}}</h2>
+				<label class="toggle toggle-energized">
+					<input type="checkbox" ng-model="vm.following"></input>
+					<div class="track">
+						<div class="handle"></div>
+					</div>
+				</label>
+			</div> 	 -->
+
+		</div>
+		<div class="list">
+			<a class="item item-icon-right" ng-repeat="game in vm.games" ui-sref="app.game({ id: game.gameId })">
+				
+				<div class="row">
+					<div class="col-20">
+						<p>{{game.time | date:'M/d/yy'}}</p>
+						<p>{{game.time | date:'shortTime'}}</p>
+					</div>
+
+					<div class="col col-center">
+						<h3>{{game.homeAway}} {{game.opponent}}</h3>
+						<p>{{game.location}}</p>
+					</div>
+					<div class="col-20 col-center">
+						<h4 class="positive">{{game.scoreDisplay}}</h4>
+					</div>
+				</div>
+
+				<i class="icon ion-chavron-right icon-acceddory"></i>
+			</a>
+		</div>
+	</ion-content>
+</ion-view>

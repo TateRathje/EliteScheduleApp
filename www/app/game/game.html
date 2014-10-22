@@ -1,0 +1,41 @@
+<ion-view title="Game" ng-controller="GameCtrl as vm">
+	<ion-content class="has-header">
+		<div class="card">
+			<div class="item item-divider item-energized">
+				Home Team
+			</div>
+			<a class="item item-text-wrap item-icon-right" ng-href="#/app/teams/{{vm.game.team1Id}}">
+				{{vm.game.team1}}
+
+				<i class="icon ion-chevron-right icon-accessory"></i>
+			</a>
+			<div class="item item-divider">
+				Score: {{vm.game.team1Score}}
+			</div>
+		</div>
+		<div class="card">
+			<div class="item item-divider item-energized">
+				Away Team
+			</div>
+			<a class="item item-text-wrap item-icon-right" ng-href="#/app/teams/{{vm.game.team2Id}}">
+				{{vm.game.team2}}
+
+				<i class="icon ion-chevron-right icon-accessory"></i>
+			</a>
+			<div class="item item-divider">
+				Score: {{vm.game.team2Score}}
+			</div>
+		</div>
+		<div class="card">
+			<div class="item item-divider item-energized">
+				Time/Location
+			</div>
+			<div class="item">
+				<span class="bold">Date/Time:</span> {{vm.game.time | date:'M/d/yy'}} {{vm.game.time | date:'shortTime'}}
+			</div>
+			<div class="item item-button-right">
+				{{vm.game.location}}
+			</div>
+		</div>
+	</ion-content>
+</ion-view>
