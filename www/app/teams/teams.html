@@ -1,5 +1,6 @@
 <ion-view title="Teams" ng-controller="TeamsCtrl as vm">
 	<ion-content class="has-header">
+		<ion-refresher pulling-text="Pull to refresh..." on-refresh="vm.loadList(true)"></ion-refresher>
 		<div class="list">
 			<div ng-repeat="division in vm.teams">
 				<div class="item item-divider item-energized">{{division.divisionName}}</div>

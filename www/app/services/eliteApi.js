@@ -5,10 +5,42 @@
 
 	function eliteApi($http, $q, $ionicLoading, DSCacheFactory) {
 
-			var currentLeagueId;
-
 			self.leaguesCache = DSCacheFactory.get("leaguesCache");
 			self.leagueDataCache = DSCacheFactory.get("leagueDataCache");
+
+			self.leaguesCache.setOptions({
+				onExpire: function (key, value) {
+					getLeagues()
+						.then(function () {
+							console.log("leagues Cache was automatically refreshed.", new Date());
+						}, function () {
+								console.log("Error getting data. Putting expired item back in the cache.", new Date());
+								self.leaguesCache.put(key, value);
+						});
+				}
+			});
+
+			self.leaguesCache.setOptions({
+				onExpire: function (key, value) {
+					getLeagues()
+						.then(function () {
+							console.log("leagues Cache was automatically refreshed.", new Date());
+						}, function () {
+								console.log("Error getting data. Putting expired item back in the cache.", new Date());
+								self.leaguesCache.put(key, value);
+						});
+				}
+			});
+
+			self.staticCache = DSCacheFactory.get("staticCache");
+
+			function setLeagueId(leagueId){
+				self.staticCache.put("currentLeagueId", leagueId);
+			}
+
+			function getLeagueId(){
+				return self.staticCache.get("currentLeagueId");
+			}
 
 			function getLeagues(){
 				var deferred = $q.defer(),
@@ -33,10 +65,16 @@
 					return deferred.promise;
 			  }
 
-			function getLeagueData(){
+			function getLeagueData(forceRefresh) {
+				if (typeof forceRefresh === "undefined") { forceRefresh = false; }
+
 				var deferred = $q.defer(),
-					cacheKey = "leagueData-" + currentLeagueId,
+					cacheKey = "leagueData-" + getLeagueId(),
+					leagueData = null;
+
+				if (!forceRefresh) {
 					leagueData = self.leagueDataCache.get(cacheKey);
+				};
 
 				if (leagueData) {
 					console.log("Found data in cache", leagueData);
@@ -44,7 +82,7 @@
 				} else {
 					$ionicLoading.show({ template: 'Loading...'});
 
-					$http.get("http://elite-schedule.net/api/leaguedata/" + currentLeagueId)
+					$http.get("http://elite-schedule.net/api/leaguedata/" + getLeagueId())
 						.success(function(data, status){
 							console.log("Received schedule data via HTTP.", data, status);
 								self.leagueDataCache.put(cacheKey, data);
@@ -59,10 +97,6 @@
 					}
 					return deferred.promise;
 			  };
-
-			function setLeagueId(leagueId){
-				currentLeagueId = leagueId;
-			}
 
 			return {
 				getLeagues: getLeagues,
