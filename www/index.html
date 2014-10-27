@@ -17,15 +17,20 @@
     <script src="lib/lodash/dist/lodash.min.js"></script>
     <script src="lib/angular-cache/dist/angular-cache.min.js"></script>
 
+    <script src="lib/showdown/compressed/showdown.js"></script>
+    
+    <script src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
+    <script src="lib/angular-google-maps/dist/angular-google-maps.min.js"></script>
+    
+    
+    
+
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
     <script src="app/app.js"></script>
     <script src="js/controllers.js"></script>
-
-    <script src="app/services/eliteApi.js"></script>
-    <script src="app/services/myTeamsService.js"></script>
 
     <script src="app/teams/team-detail-ctrl.js"></script>
     <script src="app/home/leagues-ctrl.js"></script>
@@ -34,6 +39,13 @@
     <script src="app/standings/standings-ctrl.js"></script>
     <script src="app/game/game-ctrl.js"></script>
     <script src="app/home/my-teams-ctrl.js"></script>
+    <script src="app/locations/location-map-ctrl.js"></script>
+    <script src="app/rules/rules-ctrl.js"></script>
+
+    <script src="app/services/eliteApi.js"></script>
+    <script src="app/services/myTeamsService.js"></script>
+    <script src="app/directives/markdown.js"></script>
+    
   </head>
 
   <body ng-app="eliteApp">
